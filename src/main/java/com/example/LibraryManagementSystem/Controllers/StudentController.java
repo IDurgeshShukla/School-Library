@@ -28,13 +28,22 @@ public class StudentController {
         return new ResponseEntity<String>("Student added successfully", HttpStatus.CREATED);
     }
     @GetMapping("/get-department-by-id/{rollNo}")
-    public ResponseEntity getDepartmenntByID(@PathVariable Integer  rollNo){
+    public ResponseEntity getDepartmentByID(@PathVariable ("rollNo") Integer  rollNo){
         try {
             Department department = studentService.getDepartmentByID(rollNo);
             return new ResponseEntity(department,HttpStatus.FOUND);
         } catch (Exception e){
             log.error("department not found" + e.getMessage());
             return new ResponseEntity(e.getMessage(),HttpStatus.NOT_ACCEPTABLE);
+        }
+    }
+    @GetMapping("/card-status-of-studentId")
+    public ResponseEntity getCardStatusOfGivenStudentId(@PathVariable ("studentId") Integer studentId){
+        try {
+            String status = studentService.getCardStatusOfGivenStudentId(studentId);
+            return new ResponseEntity<>(status,HttpStatus.FOUND);
+        } catch (Exception e){
+            return new ResponseEntity("Not found" + e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 }

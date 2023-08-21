@@ -28,4 +28,11 @@ public class StudentService {
         Student student = optionalStudent.get();
         return student.getDepartment();
     }
+
+    public String getCardStatusOfGivenStudentId(Integer studentId) throws Exception {
+        Optional<Student> studentOptional = studentRepository.findById(studentId);
+        if (!studentOptional.isPresent()) throw new Exception(" Student not found");
+        Student student = studentOptional.get();
+        return student.getLibraryCard().getCardStatus().toString();
+    }
 }

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table
@@ -30,7 +32,8 @@ public class Book {
     @JoinColumn
             // unidirectional mapping
     private Author author;
-
+    @OneToMany(mappedBy = "book", cascade =  CascadeType.ALL)
+    List<Transaction> transactions = new ArrayList<>();
     public Book(String title, Boolean isAvailable, Genre genre, LocalDate localDate, Integer price, Author author) {
         this.title = title;
         this.isAvailable = isAvailable;

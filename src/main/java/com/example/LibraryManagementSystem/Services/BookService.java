@@ -1,5 +1,6 @@
 package com.example.LibraryManagementSystem.Services;
 
+import com.example.LibraryManagementSystem.Enums.Genre;
 import com.example.LibraryManagementSystem.Models.Author;
 import com.example.LibraryManagementSystem.Models.Book;
 import com.example.LibraryManagementSystem.Repositories.AuthorRepository;
@@ -8,6 +9,8 @@ import com.example.LibraryManagementSystem.RequestDto.AddBookRequestDto;
 import jakarta.persistence.Entity;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.nio.file.OpenOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,5 +35,20 @@ AuthorRepository authorRepository;
         List<Book> list = author.getBookList();
         list.add(book);
         author.setBookList(list);
+    }
+
+    public List<Book> findbookByGenre(Genre genre) throws  Exception{
+        List<Book> ans = new ArrayList<>();
+        List<Book> bookOptional = bookRepo.findAll();
+        for (Book book :
+                bookOptional) {
+            if (book.getGenre().equals(genre)) {
+                int bookId = book.getBookId();
+                Optional<Book> optionalBook = bookRepo.findById(bookId);
+                if (!optionalBook.isPresent()) throw  new Exception("Book is not present");
+                ans.add(optionalBook.get());
+            }
+            }
+        return ans;
     }
 }

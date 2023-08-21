@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table
 @Getter
@@ -24,7 +27,9 @@ public class LibraryCard {
     private Integer numOfIssuedBooks;
     @OneToOne
     @JoinColumn
-    //@PrimaryKeyJoinColumn(name = "rollNo")
     private Student student; // this is the FK variable name
+
+    @OneToMany(mappedBy = "libraryCard", cascade =  CascadeType.ALL)
+    private List<Transaction> Transactions = new ArrayList<>();
 
 }
