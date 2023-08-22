@@ -3,9 +3,12 @@ package com.example.LibraryManagementSystem.Services;
 import com.example.LibraryManagementSystem.Enums.Department;
 import com.example.LibraryManagementSystem.Models.Student;
 import com.example.LibraryManagementSystem.Repositories.StudentRepository;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,5 +37,14 @@ public class StudentService {
         if (!studentOptional.isPresent()) throw new Exception(" Student not found");
         Student student = studentOptional.get();
         return student.getLibraryCard().getCardStatus().toString();
+    }
+
+    public int countStudentsWithDepartment(String department) throws  Exception{
+        try {
+            List<Student> students = studentRepository.findStudentsWithDepartment(department);
+            return students.size();
+        } catch (Exception e){
+            throw new Exception("Not found any student with given department");
+        }
     }
 }

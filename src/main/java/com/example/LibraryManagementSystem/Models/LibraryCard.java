@@ -30,6 +30,6 @@ public class LibraryCard {
     private Student student; // this is the FK variable name
 
     @OneToMany(mappedBy = "libraryCard", cascade =  CascadeType.ALL)
-    private List<Transaction> Transactions = new ArrayList<>();
+    private List<Transaction> TransactionList = new ArrayList<>();
 
 }

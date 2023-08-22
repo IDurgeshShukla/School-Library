@@ -15,23 +15,23 @@ public class LibraryCardController {
     @Autowired
     LibraryCardService cardService;
     @PostMapping("/create")
-    public ResponseEntity addCard(@RequestBody LibraryCard card){
+    public ResponseEntity<String> addCard(@RequestBody LibraryCard card){
         try{
             cardService.addCard(card);
-            return new  ResponseEntity("card added successfully", HttpStatus.ACCEPTED);
+            return new  ResponseEntity<>("card added successfully", HttpStatus.ACCEPTED);
         } catch (Exception e){
             log.error(e.getMessage());
-            return new ResponseEntity("Card addition failed"+ e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>("Card addition failed"+ e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
     }
     @PutMapping("/associate-Student-to-card" ) // write only
-    public ResponseEntity issueCard(@RequestParam Integer rollNo, @RequestParam Integer Id){
+    public ResponseEntity<String> issueCard(@RequestParam Integer rollNo, @RequestParam Integer Id){
         try{
             cardService.associateCard(rollNo,Id);
-            return new ResponseEntity("card issued successfully ", HttpStatus.ACCEPTED);
+            return new ResponseEntity<>("card issued successfully ", HttpStatus.ACCEPTED);
         }catch (Exception e){
             log.error(e.getMessage());
-            return new ResponseEntity("Could not issued" + e.getMessage(), HttpStatus.NOT_IMPLEMENTED);
+            return new ResponseEntity<>("Could not issued" + e.getMessage(), HttpStatus.NOT_IMPLEMENTED);
         }
     }
 }

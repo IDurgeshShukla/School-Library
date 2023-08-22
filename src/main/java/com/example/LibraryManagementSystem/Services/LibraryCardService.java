@@ -34,5 +34,7 @@ public class LibraryCardService {
         //associate both of them
         student.setLibraryCard(card);
         card.setStudent(student);
+        cardRepo.save(card);
+        studentRepo.save(student);
     }
 }

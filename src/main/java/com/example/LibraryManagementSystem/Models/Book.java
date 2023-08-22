@@ -2,7 +2,6 @@ package com.example.LibraryManagementSystem.Models;
 
 import com.example.LibraryManagementSystem.Enums.Genre;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,7 +32,7 @@ public class Book {
             // unidirectional mapping
     private Author author;
     @OneToMany(mappedBy = "book", cascade =  CascadeType.ALL)
-    List<Transaction> transactions = new ArrayList<>();
+    List<Transaction> transactionList = new ArrayList<>();
     public Book(String title, Boolean isAvailable, Genre genre, LocalDate localDate, Integer price, Author author) {
         this.title = title;
         this.isAvailable = isAvailable;

@@ -10,29 +10,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
 @Slf4j
 @RequestMapping("/book")
 public class BookController {
     @Autowired
     BookService bookService;
     @PostMapping("/add")
-    public ResponseEntity addBook(@RequestBody AddBookRequestDto book){
+    public ResponseEntity<String> addBook(@RequestBody AddBookRequestDto book){
         try {
             bookService.addBook(book);
-            return new ResponseEntity("book added Successfully ", HttpStatus.ACCEPTED);
+            return new ResponseEntity<>("book added Successfully ", HttpStatus.ACCEPTED);
         } catch (Exception e){
             log.error("Unbale to add book" +e.getMessage());
-            return new ResponseEntity("addition book is failed" + e.getMessage(), HttpStatus.NOT_IMPLEMENTED);
+            return new ResponseEntity<>("addition book is failed" + e.getMessage(), HttpStatus.NOT_IMPLEMENTED);
         }
     }
     @GetMapping("/find-book-with-genre")
-    public ResponseEntity findBookByGenre(@RequestParam Genre genre){
+    public ResponseEntity<Object> findBookByGenre(@RequestParam Genre genre){
         try {
             List<Book> books =  bookService.findbookByGenre(genre);
-            return new ResponseEntity(books, HttpStatus.ACCEPTED);
+            return new ResponseEntity<Object>(books, HttpStatus.ACCEPTED);
         } catch (Exception e){
-            return new ResponseEntity("Cann't find books with given genre" + e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>("Cann't find books with given genre" + e.getMessage(), HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
 }

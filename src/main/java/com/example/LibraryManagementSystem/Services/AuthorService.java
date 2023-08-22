@@ -55,4 +55,12 @@ public class AuthorService {
                 author.getBookList().size(), author.getAge());
         return authorResponseDto;
     }
+
+    public void deleteAuthorById(Integer authorId)throws  Exception{
+        try{
+            authorRepository.deleteById(authorId);
+        }catch (Exception e) {
+            throw new Exception("Invalid Id");
+        }
+    }
 }

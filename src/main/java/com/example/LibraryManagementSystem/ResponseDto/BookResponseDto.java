@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseDto {
+public class BookResponseDto {
     private String title;
     private String authorName;
 }
